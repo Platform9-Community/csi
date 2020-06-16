@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to csi 👋</h1>
+<h1 align="center">Welcome to KoolKubernetes CSI 👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/csi" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/csi.svg">
