@@ -16,12 +16,12 @@ $ git clone https://github.com/KoolKubernetes/csi.git
 
 Deploy first yaml.
 ```bash
-$ kubectl apply -f rook/1-common.yaml
+$ kubectl apply -f rook/internal-ceph/1-common.yaml
 ```
 
 Deploy the second yaml for rook operator
 ```bash
-$ kubectl apply -f rook/2-operator.yaml
+$ kubectl apply -f rook/internal-ceph/2-operator.yaml
 configmap/rook-ceph-operator-config created
 deployment.apps/rook-ceph-operator created
 ```
@@ -50,7 +50,7 @@ replicaset.apps/rook-ceph-operator-848b8bc676   1         1         1       64m
 
 Deploy third yaml to create the ceph cluster.
 ```bash
-$ kubectl apply -f rook/3-cluster.yaml
+$ kubectl apply -f rook/internal-ceph/3-cluster.yaml
 cephcluster.ceph.rook.io/rook-ceph created
 ```
 
@@ -87,7 +87,7 @@ rook-discover-lddn2                                       1/1     Running     0 
 
 Deploy fourth yaml to create dashboard service
 ```bash
-$ kubectl apply -f rook/4-dashboard-service.yaml
+$ kubectl apply -f rook/internal-ceph/4-dashboard-service.yaml
 service/dashboard created
 ```
 
@@ -114,7 +114,7 @@ $ kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['d
 
 Create the storage class
 ```bash
-$ kubectl apply -f rook/5-storageclass.yaml
+$ kubectl apply -f rook/internal-ceph/5-storageclass.yaml
 cephblockpool.ceph.rook.io/replicapool created
 storageclass.storage.k8s.io/rook-ceph-block created
 
@@ -125,7 +125,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   162m
 
 Install the toolbox to run commands to validate the cluster
 ```bash
-$ kubectl apply -f rook/toolbox.yaml
+$ kubectl apply -f rook/internal-ceph/toolbox.yaml
 deployment.apps/rook-ceph-tools created
 ```
 
@@ -174,7 +174,7 @@ ID CLASS WEIGHT  TYPE NAME              STATUS REWEIGHT PRI-AFF
 
 Create a test pvc from the storageclass
 ```bash
-$ kubectl apply -f rook/pvc.yaml
+$ kubectl apply -f rook/internal-ceph/pvc.yaml
 persistentvolumeclaim/rbd-pvc configured
 ```
 
