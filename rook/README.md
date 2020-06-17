@@ -190,3 +190,4 @@ persistentvolumeclaim/rbd-pvc   Bound    pvc-f5f8dd87-5361-4114-ab40-81f666646d1
 
 The Storage Class will be visible in the UI
 
+![sc_ui](https://github.com/KoolKubernetes/csi/blob/master/rook/images/sc_ui.png)
