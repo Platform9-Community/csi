@@ -187,3 +187,6 @@ persistentvolume/pvc-f5f8dd87-5361-4114-ab40-81f666646d17   1Gi        RWO      
 NAME                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
 persistentvolumeclaim/rbd-pvc   Bound    pvc-f5f8dd87-5361-4114-ab40-81f666646d17   1Gi        RWO            rook-ceph-block   122m
 ```
+
+The Storage Class will be visible in the UI
+
