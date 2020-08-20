@@ -5,6 +5,7 @@ Rook turns distributed storage systems into self-managing, self-scaling, self-he
 1. platform9 freedom tier with three worker nodes and one Master node
 2. Each worker node should have at least three free disks attached to it
 3. Metallb loadbalancer configured on bare metal cluster
+4. Flannel for CNI
 
 # Deploying the rook, ceph on kubernetes:
 
