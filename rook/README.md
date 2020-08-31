@@ -10,7 +10,7 @@ We have tested Rook with following configuration on the cluster.
 5. Worker node size: 2VPUs x 8GB Memory (4VPU x 16GB recommended) 
 6. Master node size: 2VCPU x 8GB Memory
 
-# Deploying the rook v1.2.5, ceph on kubernetes:
+# Deploying the rook v1.2.5 on kubernetes:
 
 Clone the Kool Kubernetes repository on any machine from where the kubectl can deploy json manifests to your kubernetes cluster.
 
