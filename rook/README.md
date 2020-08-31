@@ -2,10 +2,13 @@
 Rook turns distributed storage systems into self-managing, self-scaling, self-healing storage services. It automates the tasks such as deployment, configuration, scaling, upgrading, monitoring, resource management for the distributed storage like ceph on top of kubernetes. It has support for multiple storage providers lik Ceph, EdgeFS, CockroachDB etc. ceph being the favourite one. 
 
 # Prerequisites:
+We have tested Rook with following configuration on the cluster.
 1. platform9 freedom tier with three worker nodes and one Master node
-2. Each worker node should have at least three free disks attached to it
+2. Each worker node should have at least three free disks each of 10GB in size attached to it
 3. Metallb loadbalancer configured on bare metal cluster
-4. Flannel for CNI
+4. Flannel for CNI. 
+5. Worker node size: 2VPUs x 8GB Memory (4VPU x 16GB recommended) 
+6. Master node size: 2VCPU x 8GB Memory
 
 # Deploying the rook, ceph on kubernetes:
 
