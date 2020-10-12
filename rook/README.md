@@ -1,5 +1,5 @@
 # CSI with Rook and Ceph on Platform9 Managed Kubernetes Freedom Plan
-Rook turns distributed storage systems into self-managing, self-scaling, self-healing storage services. It automates the tasks such as deployment, configuration, scaling, upgrading, monitoring, resource management for the distributed storage like Ceph on top of kubernetes. It has support for multiple storage providers like Ceph, EdgeFS, CockroachDB etc. ceph being the favourite one. 
+Rook turns distributed storage systems into self-managing, self-scaling, self-healing storage services. It automates the tasks such as deployment, configuration, scaling, upgrading, monitoring, resource management for the distributed storage like Ceph on top of Kubernetes. It has support for multiple storage providers like Ceph, EdgeFS, CockroachDB etc. ceph being the favourite one. 
 
 # Prerequisites:
 We have tested Rook with following configuration on the cluster:
