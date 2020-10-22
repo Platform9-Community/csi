@@ -3,19 +3,14 @@ Rook turns distributed storage systems into self-managing, self-scaling, self-he
 
 # Prerequisites:
 We have tested Rook with following configuration on the cluster:
-1. Platform9 Freedom Plan (a free tier account is required) with three worker nodes and one Master node
-2. Each worker node should have at least one free unformatted disk of size 10GiB attached to it.
-3. Metallb loadbalancer configured on bare metal cluster for enabling optional dashboard.
-4. Flannel or Calico for CNI.
+1. Platform9 Freedom Plan (a free tier) with three worker nodes and one Master node
+2. Each worker node should have at least three free disks each of 10GB in size attached to it
+3. Metallb loadbalancer configured on bare metal cluster
+4. Flannel for CNI. 
 5. Worker node size: 2VPUs x 8GB Memory (4VPU x 16GB recommended) 
-6. Master node size: 2VCPU x 8GB Memory (4VPU x 16GB recommended)
-7. 'lvm2' is required on Ubuntu 16.04. Ubuntu 18.04 comes pre installed with lvm2.
+6. Master node size: 2VCPU x 8GB Memory
 
-# Note:
-There may be additional prerequisites for CentOS. 
-The deployment will work with any platform9 plans.
-
-# Deploying the rook v1.4.6 with internal ceph on kubernetes:
+# Deploying the rook v1.2.5 on kubernetes:
 
 Clone the Kool Kubernetes repository on any machine from where the kubectl can deploy json manifests to your kubernetes cluster.
 
@@ -25,12 +20,12 @@ $ git clone https://github.com/KoolKubernetes/csi.git
 
 Deploy yamls in following order:
 ```bash
-$ kubectl apply -f csi/rook/internal-ceph/1.4.6/1-common.yaml
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/1-common.yaml
 ```
 
 Deploy the second yaml for rook operator
 ```bash
-$ kubectl apply -f csi/rook/internal-ceph/1.4.6/2-operator.yaml
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/2-operator.yaml
 configmap/rook-ceph-operator-config created
 deployment.apps/rook-ceph-operator created
 ```
@@ -59,7 +54,7 @@ replicaset.apps/rook-ceph-operator-848b8bc676   1         1         1       64m
 
 Deploy third yaml to create the ceph cluster.
 ```bash
-$ kubectl apply -f csi/rook/internal-ceph/1.4.6/3-cluster.yaml
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/3-cluster.yaml
 cephcluster.ceph.rook.io/rook-ceph created
 ```
 
@@ -94,29 +89,54 @@ rook-discover-cm5vm                                       1/1     Running     0 
 rook-discover-lddn2                                       1/1     Running     0          94m
 ```
 
+Deploy fourth yaml to create dashboard service
+```bash
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/4-dashboard-service.yaml
+service/dashboard created
+```
+
+Verify dashboard service gets an IP from the loadbalancer.
+```bash
+$ kubectl get services -n rook-ceph
+NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)             AGE
+csi-cephfsplugin-metrics   ClusterIP      10.21.229.217   <none>           8080/TCP,8081/TCP   27m
+csi-rbdplugin-metrics      ClusterIP      10.21.214.248   <none>           8080/TCP,8081/TCP   27m
+dashboard                  LoadBalancer   10.21.22.58     10.12.3.206      443:30990/TCP       12s
+rook-ceph-mgr              ClusterIP      10.21.120.228   <none>           9283/TCP            22m
+rook-ceph-mgr-dashboard    ClusterIP      10.21.40.163    <none>           8443/TCP            22m
+rook-ceph-mon-a            ClusterIP      10.21.18.145    <none>           6789/TCP,3300/TCP   26m
+rook-ceph-mon-b            ClusterIP      10.21.204.227   <none>           6789/TCP,3300/TCP   26m
+rook-ceph-mon-d            ClusterIP      10.21.59.17     <none>           6789/TCP,3300/TCP   21m
+```
+
+Note that due to a self signed SSL certificate used in rook dashboard it may not open in chrome.
+
+The dashboard username is 'admin' and its password can be extracted from its service account as follows:
+```bash
+$ kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}"|base64 --decode
+```
 
 Create the storage class
 ```bash
-$ kubectl apply -f csi/rook/internal-ceph/1.4.6/4-storageclass.yaml
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/5-storageclass.yaml
 cephblockpool.ceph.rook.io/replicapool created
 storageclass.storage.k8s.io/rook-ceph-block created
 
-$ k get sc
-NAME              PROVISIONER                  RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-rook-ceph-block   rook-ceph.rbd.csi.ceph.com   Delete          Immediate           true                   5s
+$ kubectl get sc
+NAME              PROVISIONER                  AGE
+rook-ceph-block   rook-ceph.rbd.csi.ceph.com   162m
 ```
 
 Install the toolbox to run commands to validate the cluster
 ```bash
-$ kubectl apply -f csi/rook/internal-ceph/1.4.6/5-toolbox.yaml
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/toolbox.yaml
 deployment.apps/rook-ceph-tools created
 ```
 
 One can validate ceph cluster status from the toolbox pod as shown below
 
 ```bash
-$ kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" \
-  -o jsonpath='{.items[0].metadata.name}') bash
+$ kubectl exec -it rook-ceph-tools-57df59d87d-9zbrt   -n rook-ceph -- /bin/bash
 
 [root@worker03 /]# ceph status
   cluster:
@@ -158,7 +178,7 @@ ID CLASS WEIGHT  TYPE NAME              STATUS REWEIGHT PRI-AFF
 
 Create a test pvc from the storageclass
 ```bash
-$ kubectl apply -f csi/rook/internal-ceph/1.4.6/6-pvc.yaml
+$ kubectl apply -f csi/rook/internal-ceph/1.2.5/pvc.yaml
 persistentvolumeclaim/rbd-pvc configured
 ```
 
@@ -172,6 +192,7 @@ NAME                            STATUS   VOLUME                                 
 persistentvolumeclaim/rbd-pvc   Bound    pvc-f5f8dd87-5361-4114-ab40-81f666646d17   1Gi        RWO            rook-ceph-block   122m
 ```
 
-The Storage Class will also be visible in the PMK UI
+The Storage Class will be visible in the UI
 
 ![sc_ui](https://github.com/KoolKubernetes/csi/blob/master/rook/images/sc_ui.png)
+
