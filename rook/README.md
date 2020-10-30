@@ -1,5 +1,5 @@
 # CSI with Rook and Ceph on Platform9 Managed Kubernetes Freedom Plan
-Rook turns distributed storage systems into self-managing, self-scaling, self-healing storage services. It automates the tasks such as deployment, configuration, scaling, upgrading, monitoring, resource management for the distributed storage like Ceph on top of Kubernetes. It has support for multiple storage providers like Ceph, EdgeFS, CockroachDB etc. ceph being the favourite one. 
+Rook turns distributed storage systems into self-managing, self-scaling, self-healing storage services. It automates the tasks such as deployment, configuration, scaling, upgrading, monitoring, resource management for the distributed storage like Ceph on top of Kubernetes. It has support for multiple storage providers like Ceph, EdgeFS, CockroachDB etc. ceph being the favourite one.
 
 # Prerequisites:
 We have tested Rook with following configuration on the cluster:
@@ -7,12 +7,12 @@ We have tested Rook with following configuration on the cluster:
 2. Each worker node should have at least one free unformatted disk of size 10GiB attached to it.
 3. Metallb loadbalancer configured on bare metal cluster for enabling optional dashboard.
 4. Flannel or Calico for CNI.
-5. Worker node size: 2VPUs x 8GB Memory (4VPU x 16GB recommended) 
+5. Worker node size: 2VPUs x 8GB Memory (4VPU x 16GB recommended)
 6. Master node size: 2VCPU x 8GB Memory (4VPU x 16GB recommended)
 7. 'lvm2' is required on Ubuntu 16.04. Ubuntu 18.04 comes pre installed with lvm2.
 
 # Note:
-There may be additional prerequisites for CentOS. 
+There may be additional prerequisites for CentOS.
 The deployment will work with any platform9 plans.
 
 # Deploying the rook v1.4.6 with internal ceph on kubernetes:
@@ -175,3 +175,67 @@ persistentvolumeclaim/rbd-pvc   Bound    pvc-f5f8dd87-5361-4114-ab40-81f666646d1
 The Storage Class will also be visible in the PMK UI
 
 ![sc_ui](https://github.com/KoolKubernetes/csi/blob/master/rook/images/sc_ui.png)
+
+
+# Enabling CSI Snapshot functionality
+
+There are certain use-cases where you need volume Snapshot functionality and you need to have `volumesnapshotclasses`,`volumesnapshotcontents` and `volumesnapshots`  objects present on the cluster.
+
+
+This can be implemented by running the following commands.
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+```
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+```
+
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+```
+
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+```
+
+```bash
+kubectl apply -f https://github.com/kubernetes-csi/external-snapshotter/blob/master/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+```
+
+
+Finally, we'll deploy the Snapshot class that's needed for creating Volume Snapshots -
+
+```bash
+kubectl apply -f csi/rook/internal-ceph/1.4.6/8-snapshot-class.yaml
+```
+
+Now let's test the volumeSnapshot creation and restore by creating a test volumeSnapshot. If you have not already created a test snapshot as mentioned earlier, run the following command to create it -
+
+
+```bash
+kubectl apply -f csi/rook/internal-ceph/1.4.6/6-pvc.yaml
+```
+
+Next, create a snapshot by running the following command -
+
+```bash
+kubectl apply -f csi/rook/internal-ceph/1.4.6/9-volume-snapshot.yaml
+```
+
+
+Ensure that you're able to observe the volume snapshot in the following command -
+```bash
+kubectl get volumesnapshots
+```
+
+Now, lets restore the snapshot -
+
+```bash
+kubectl apply -f 10-volume-snapshot-restore.yaml
+```
+
+You should now be able to observe both the pv and the associated snapshots.
