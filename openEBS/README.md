@@ -46,7 +46,7 @@ For any other operating systems, follow the [steps](https://docs.openebs.io/docs
 
 In a PMKFT environment, all you need to do is select the Privileged mode checkBox while creating a cluster from UI
 
-![privilegedMode](https://github.com/platform9/KoolKubernetes/blob/master/csi/openEBS/images/privileged.png)
+![privilegedMode](https://github.com/KoolKubernetes/csi/blob/master/openEBS/images/privileged.png)
 
 
 5. Disks that would form the storage Pool are mounted on the worker nodes. It's recommended to have a homogenous setup as far as possible in terms of Disk size, no. of disks etc.
