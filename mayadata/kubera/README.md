@@ -8,10 +8,21 @@ Mayadata director is a remote SaaS management plane to provision and maintain Op
 4. Flannel or Calico for CNI.
 5. Three Worker nodes size: 2VPUs x 8GB Memory (4VPU x 8GB recommended)
 6. One Master node size: 2VCPU x 8GB Memory (4VPU x 8GB recommended)
-7. CentOS 7.6/7.8 or Ubuntu 18.04 installed on the nodes.
+7. CentOS 7.6/7.8 or Ubuntu 18.04 installed on the nodes with iSCSI client enabled
 
 
 # Configuration:
+
+
+## Enable iSCSI on the nodes
+Check [here](https://docs.openebs.io/docs/next/prerequisites.html#centos) for instructions.
+ 
+```bash
+yum install iscsi-initiator-utils -y
+sudo systemctl enable --now iscsid
+sudo systemctl status iscsid
+```
+
 ## Add cluster into the kubera director dashboard
 
 Create kubera director login profile and login to the kubera dashboard. Opt in for a basic plan for free access. This is sufficient to configure kubera on couple of clusters.
