@@ -2,13 +2,13 @@
 Mayadata director is a remote SaaS management plane to provision and maintain OpenEBS persistent storage for your microservices running on kubernetes.
 
 # Prerequisites:
-1. Platform9 Freedom Plan (a free tier account is required) with three worker nodes and one Master node. Enabling workload on master node will also work.
+1. Platform9 Freedom Plan (a free tier account is required) with three worker nodes and one Master node with workloads enabled on master node.
 2. Each node should have at least one free unformatted disk attached to it. Prefer size larger than 10GB.
 3. Metallb loadbalancer configured on bare metal clusters to expose your services of type loadbalancer
 4. Flannel or Calico for CNI.
 5. Three Worker nodes size: 2VPUs x 8GB Memory (4VPU x 8GB recommended)
 6. One Master node size: 2VCPU x 8GB Memory (4VPU x 8GB recommended)
-7. CentOS 7.6 or above or Ubuntu 18.04 or above installed on the nodes.
+7. CentOS 7.6/7.8 or Ubuntu 18.04 installed on the nodes.
 
 
 ## Add cluster into the kubera director dashboard
@@ -226,7 +226,7 @@ drwx------. 2 root root      16384 Apr 23 10:49 lost+found
 root@web-server-7658db5f8b-8pthk:/#
 ```
 
-Enable Volume Analytics from the Dashboard and vizualize the statitics
+Enable Volume Analytics from the Dashboard to vizualize the statitics
 
 ![va2](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/va2.png)
 
