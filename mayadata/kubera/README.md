@@ -11,6 +11,7 @@ Mayadata director is a remote SaaS management plane to provision and maintain Op
 7. CentOS 7.6/7.8 or Ubuntu 18.04 installed on the nodes.
 
 
+# Configuration:
 ## Add cluster into the kubera director dashboard
 
 Create kubera director login profile and login to the kubera dashboard. Opt in for a basic plan for free access. This is sufficient to configure kubera on couple of clusters.
