@@ -154,7 +154,7 @@ No resources found in default namespace.
 
 Create a test deployment and verify the PVC can be bound to the pod across the cluster.
 ```bash
-$ kubectl apply -f test-deployment.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/KoolKubernetes/csi/master/mayadata/kubera/test-deployment.yaml
 persistentvolumeclaim/openebspodpvc created
 deployment.apps/web-server created
 ```
