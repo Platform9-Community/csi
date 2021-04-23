@@ -14,22 +14,28 @@
 ## Add cluster into the kubera director dashboard
 
 Create kubera director login profile and login to the kubera dashboard. Opt in for a basic plan for free access. This is sufficient to configure kubera on couple of clusters.
+
 ![dashbrd](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/dash.png)
 
 On the Dashboard create a project e.g. platform9 and add a cluster:
-![addcl(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/addcl.png)
+
+![addcl](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/addcl.png)
 
 
 You'll get the name of your cluster on the Platform9 SaaS management plane:
-![clname(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cl.png)
 
-Now on the kubera dashboard click 'Connect a new cluster' on the top right corner of the page. In the menu provide a name to your cluster, Select managed K8s services, select Not listed and click continue. 
-![conn-cl(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/conn-cl.png)
+![clname](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cl.png)
+
+Now on the kubera dashboard click 'Connect a new cluster' on the top right corner of the page. In the menu provide a name to your cluster, Select managed K8s services, select Not listed and click continue.
+
+![conn-cl](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/conn-cl.png)
 
 An activate cluster kubectl command will appear on your screen which should be simply copied as it is and run on your platform9 kubernetes cluster.
-![act(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/act.png)
+
+![act](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/act.png)
 
 How the Manifest gets deployed on your platform9 cluster.
+
 ```bash
 $ kubectl apply -f https://director.mayadata.io/v3/scripts/33CB85F3B5FC58858956:1609372800000:ZzmkeAxArnW8KkhsrBGSCZFrm2A.yaml
 namespace/maya-system created
@@ -59,53 +65,73 @@ deployment.apps/upgrade-controller created
 service/upgrade-controller-service created
 ```
 
-In a few minutes activation is successful. After succesful activation click Install openEBS pop-up. Begin Installation. 
-![insto(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/insto.png)
+In a few minutes activation is successful. After succesful activation click Install openEBS pop-up. Begin Installation.
+
+![insto](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/insto.png)
 
 Select Advanced Installation
-![insttype(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/insttype.png)
+
+![insttype](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/insttype.png)
 
 Start installation screen click Next
-![start-inst(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/start-inst.png)
+
+![start-inst](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/start-inst.png)
 
 Set resource limits for a large deployment
-![res(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/res.png)
+
+![res](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/res.png)
 
 Select the Controler Nodes (for HA select all nodes in a small cluster)
-![ctrl(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/ctrl.png)
+
+![ctrl](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/ctrl.png)
 
 Select Data nodes (Select all nodes with disks attached)
-![dn(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/dn.png)
+
+![dn](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/dn.png)
 
 Setup filters to select disks for openEBS storage Pools
-![fltr(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/fltr.png)
+
+![fltr](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/fltr.png)
 
 Confirm and deploy
-![cnf(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cnf.png)
+
+![cnf](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cnf.png)
 
 Deployment progresses and finishes in few minutes
-![pg1(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/pg1.png)
-![pg2(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/pg2.png)
-![pg3(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/pg3.png)
+
+![pg1](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/pg1.png)
+
+![pg2](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/pg2.png)
+
+![pg3](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/pg3.png)
 
 Verify deployment is running 
-![depr(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/depr.png)
+
+![depr](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/depr.png)
 
 Create new cStor Pool, select all nodes with disks attached and click create.
-![cStroc(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc.png)
-![cStroc1(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc1.png)
-![cStroc2(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc2.png)
-![cStroc3(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc3.png)
+
+![cStroc](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc.png)
+
+![cStroc1](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc1.png)
+
+![cStroc2](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc2.png)
+
+![cStroc3](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStroc3.png)
 
 Validate Pool is ready
-![cStor4(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStor4.png)
-![cStor5(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStor5.png)
+
+![cStor4](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStor4.png)
+
+![cStor5](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cStor5.png)
 
 StorageClasses are created by default.
-![sc1(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/sc1.png)
+
+![sc1](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/sc1.png)
 
 These Storage Classes will be visible in your platform9 SaaS management plane as well.
-![sc2(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/sc2.png)
+
+![sc2](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/sc2.png)
 
 List down the storage classed via kubectl
 ```bash
@@ -201,34 +227,11 @@ root@web-server-7658db5f8b-8pthk:/#
 ```
 
 Enable Volume Analytics from the Dashboard and vizualize the statitics
-![va2(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/va2.png)
-![va1(https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/va1.png)
+
+![va2](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/va2.png)
+
+![va1](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/va1.png)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```bash
-
-```
-
-
-## Store Dockerhub and GitHub credentials
-Storing DockerHub username and password of your DockerHub repository into Jenkins is required so that pipeline can upload images to your dockerhub repository. Additionally store your GitHub credentials to pull the cicd repository. To do this in Jenkins UI, on the home page click Credentials -> Jenkins -> Global credentials (unrestricted) -> Add credentials. Fill out the dockerhub username, password and set ID as 'dockerhub'.
-
-![add-cred-dhub](https://github.com/KoolKubernetes/cicd/blob/master/jenkins/images/add_cred_dhub.png)
-
-
-# Kubernetes Build
-Using the platform9 free tier account or your platform9 management plane carve two PMK 4.3+ (kubernetes 1.16+) clusters. We have tested this with flannel CNI and Rook CSI. Please refer [Rook](https://github.com/KoolKubernetes/csi/tree/master/rook/) to configure the Rook CSI on both PMK clusters.
+## References:
+https://mayadata.io/product
