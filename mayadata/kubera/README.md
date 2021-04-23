@@ -4,11 +4,11 @@
 # Prerequisites:
 1. Platform9 Freedom Plan (a free tier account is required) with three worker nodes and one Master node. Enabling workload on master node will also work.
 2. Each node should have at least one free unformatted disk attached to it. Prefer size larger than 10GB.
-3. Metallb loadbalancer configured on bare metal cluster for enabling optional dashboard.
+3. Metallb loadbalancer configured on bare metal clusters to expose your services of type loadbalancer
 4. Flannel or Calico for CNI.
-5. Worker node size: 2VPUs x 8GB Memory (4VPU x 8GB recommended)
-6. Master node size: 2VCPU x 8GB Memory (4VPU x 8GB recommended)
-7. CentOS 7.6 or above or Ubuntu 18.04 or above installed on the nodes
+5. Three Worker nodes size: 2VPUs x 8GB Memory (4VPU x 8GB recommended)
+6. One Master node size: 2VCPU x 8GB Memory (4VPU x 8GB recommended)
+7. CentOS 7.6 or above or Ubuntu 18.04 or above installed on the nodes.
 
 
 ## Add cluster into the kubera director dashboard
