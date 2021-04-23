@@ -1,5 +1,5 @@
 # Mayadata kubera Persistent Storage through Mayadata Director for platform9 managed kubernetes clusters
-
+Mayadata director is a remote SaaS management plane to provision and maintain OpenEBS persistent storage for your microservices running on kubernetes.
 
 # Prerequisites:
 1. Platform9 Freedom Plan (a free tier account is required) with three worker nodes and one Master node. Enabling workload on master node will also work.
