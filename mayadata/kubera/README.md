@@ -22,7 +22,7 @@ On the Dashboard create a project e.g. platform9 and add a cluster:
 ![addcl](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/addcl.png)
 
 
-You'll get the name of your cluster on the Platform9 SaaS management plane:
+You'll get the name of your cluster from the Platform9 SaaS management plane:
 
 ![clname](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/cl.png)
 
@@ -30,11 +30,11 @@ Now on the kubera dashboard click 'Connect a new cluster' on the top right corne
 
 ![conn-cl](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/conn-cl.png)
 
-An activate cluster kubectl command will appear on your screen which should be simply copied as it is and run on your platform9 kubernetes cluster.
+An 'Activate cluster' kubectl command will appear on your screen which should be simply copied as it is and run on your platform9 kubernetes cluster.
 
 ![act](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/act.png)
 
-How the Manifest gets deployed on your platform9 cluster.
+How the above Manifest gets deployed on your platform9 cluster.
 
 ```bash
 $ kubectl apply -f https://director.mayadata.io/v3/scripts/33CB85F3B5FC58858956:1609372800000:ZzmkeAxArnW8KkhsrBGSCZFrm2A.yaml
@@ -65,7 +65,7 @@ deployment.apps/upgrade-controller created
 service/upgrade-controller-service created
 ```
 
-In a few minutes activation is successful. After succesful activation click Install openEBS pop-up. Begin Installation.
+In a few minutes activation is successful. After succesful activation click Begin Installation on the 'Install openEBS' pop-up.
 
 ![insto](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/insto.png)
 
@@ -73,11 +73,11 @@ Select Advanced Installation
 
 ![insttype](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/insttype.png)
 
-Start installation screen click Next
+On the 'Start installation' screen click Next
 
 ![start-inst](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/start-inst.png)
 
-Set resource limits for a large deployment
+Set resource limits suitable for a large applications
 
 ![res](https://github.com/KoolKubernetes/csi/blob/master/mayadata/kubera/images/res.png)
 
